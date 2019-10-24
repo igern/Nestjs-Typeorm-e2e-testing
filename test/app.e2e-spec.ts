@@ -26,7 +26,7 @@ describe('AppController (e2e)', () => {
     await connection.synchronize(true)
   })
 
-  it('/ (GET)', () => {
+  it('/cat (POST)', () => {
     let catDTO = new CatDTO()
     catDTO.name = "Ulla";
     catDTO.color = "Blue"
