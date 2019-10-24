@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    restart: always
+    volumes:
+      - /var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=1
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWD}
+      - MYSQL_DATABASE=${DB_NAME}
+
+  cat-service:
+    image: node:carbon
+    environment:
+      DB_HOST: mysql
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASSWD}
+    volumes:
+      - ./:/opt/cat-service/
+    working_dir: /opt/cat-service/
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASSWD}
+    restart: always
+    ports:
+      - 8088:80
+    volumes:
+      - /sessions
