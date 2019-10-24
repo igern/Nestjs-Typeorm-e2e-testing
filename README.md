@@ -20,7 +20,7 @@ The response should be {"name": "Ulla", "color": "Black"}
 ```
 
 ## Test
-This test just sends a 
+This test just sends a post request to /cat with {"name": "Ulla", "color": "Blue"} and expects {"name": "Ulla", "color": "Black"}
 ```bash
 docker-compose -f docker-compose.e2e.yml up --exit-code-from cat-service
 ```
